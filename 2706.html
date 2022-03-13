@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html ng-app="MyApp">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>2695</title>
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+	<style type="text/css">
+		.form-group {
+			margin-bottom: 20px;
+		}
+        .header{
+            background-color: rgb(45, 45, 255);
+            color: white;
+        }
+	</style>
+</head>
+<body ng-controller="MyController">
+<div class="container">
+    <div class="header">
+        <p>Input product's detail information</p>
+    </div>
+	<div class="form-group">
+		<label>Product Name: </label>
+		<input type="text" name="product_name" class="form-control" ng-model="product_name">
+	</div>
+	<div class="form-group">
+		<label>Category Name: </label>
+		<select name="category" class="form-control" ng-model="category">
+			<option></option>
+			<option>Iphone</option>
+			<option>Ipad</option>
+			<option>Ipod</option>
+			<option>Samsung s22 ultra</option>
+			<option>Samsung Z-fold</option>
+			<option>Redmi 11 pro</option>
+			<option>Poco X</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label>Price: </label>
+		<input type="number" name="price" class="form-control" ng-model="price">
+	</div>
+	<div class="form-group">
+		<label>Quantity: </label>
+		<input type="number" name="quantity" class="form-control" ng-model="quantity">
+	</div>
+    <div class="form-group">
+		<label>Total Price: </label>
+		<input type="number" name="total_price" class="form-control" ng-model="total_price">
+	</div>
+    <div class="form-group">
+		<label>Manufacture Name: </label>
+		<select name="manufacture" class="form-control" ng-model="manufacture">
+			<option>Iphone</option>
+			<option>Samsung</option>
+			<option>Xiaomi</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<button class="btn btn-success" type="submit" ng-click="addElect">Add Product</button>
+		<button class="btn btn-warning">Reset</button>
+	</div>
+    <div class="header">
+        <p>Management Products</p>
+    </div>
+	<input type="text" name="s" placeholder="Enter searching ..." style="width: 200px; float: right; margin-bottom: 20px;" class="form-control" ng-model="s">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>No</th>
+				<th>Category Name</th>
+				<th>Price</th>
+				<th>Quantity</th>
+                <th>Total Price</th>
+				<th>Manufacture</th>
+				<th style="width: 60px"></th>
+				<th style="width: 60px"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in electList | filterName:s">
+				<td>{{ $index + 1 }}</td>
+				<td>{{ item.category }}</td>
+				<td>{{ item.price }}</td>
+				<td>{{ item.quantity }}</td>
+				<td>{{ item.total_price }}</td>
+				<td>{{ item.manufacture }}</td>
+				<td>
+					<button class="btn btn-warning">Edit</button>
+				</td>
+				<td>
+					<button class="btn btn-danger" ng-click="removeElect($index)">Delete</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript">
+	var app = angular.module('MyApp', [])
+	app.controller('MyController', ['$scope', function ($scope) {
+		$scope.electList = []
+
+		$scope.addElect = function() {
+			std = {
+				'category': $scope.category,
+				'price': $scope.price,
+				'quantity': $scope.quantity,
+				'total_price': $scope.total_price,
+				'manufacture': $scope.manufacture
+			}
+			$scope.electList.push(std)
+		}
+
+		$scope.removeElect = function(index) {
+			$scope.electList.splice(index, 1)
+		}
+
+	}])
+</script>
+</body>
+</html>
